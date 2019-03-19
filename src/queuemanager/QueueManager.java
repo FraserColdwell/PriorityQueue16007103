@@ -9,8 +9,11 @@ import java.util.Scanner;
 public class QueueManager {
 
     public static void main(String[] args) {
-        PriorityQueue<Person> q;
+        
+        orderarray oa = new orderarray();
         Scanner stdin = new Scanner(System.in);
+        
+        
 
         /* Welcome and prompt for implementation choices */
         System.out.println("Welcome to the Priority Queue manager.");
@@ -28,17 +31,19 @@ public class QueueManager {
         /* Select implementation version to use */
         switch (input.toLowerCase()) {
             case "sa":
-                q = new SortedArrayPriorityQueue<>(8);
                 System.out.println("Using a sorted array.");
+                oa.orderarray(input);
+                
                 break;
             case "ua":
+               
             case "sl":
             case "ul":
             case "h":
             default:
-                q = new SortedArrayPriorityQueue<>(8);
-                System.out.println("Invalid choice, using sorted array.");
-                break;
+               //q = new SortedArrayPriorityQueue<>(8);
+               // System.out.println("Invalid choice, using sorted array.");
+               // break;
         }
 
         /* Usage instructions */
@@ -53,55 +58,6 @@ public class QueueManager {
         System.out.print("> ");
         input = stdin.nextLine();
 
-        /* Main loop */
-        while (!input.toLowerCase().equals("q")) {
-            if (input.toLowerCase().charAt(0) == 'a') {
-
-                /* Add an item to the queue */
-                String name = input.substring(2, input.lastIndexOf(' '));
-                Person person = new Person(name);
-                int priority = Integer.parseInt(input.substring(input.lastIndexOf(' ') + 1));
-                System.out.println("Adding " + person.getName() + " with priority " + priority);
-                try {
-                    q.add(person, priority);
-                } catch (QueueOverflowException e) {
-                    System.out.println("Add operation failed: " + e);
-                }
-            } else if (input.toLowerCase().charAt(0) == 'h') {
-
-                /* Display the item at the head of the queue */
-                try {
-                    String name = q.head().getName();
-                    System.out.println("The person at the head of the queue is " + name);
-                } catch (QueueUnderflowException e) {
-                    System.out.println("Can't get head of queue: " + e);
-                }
-            } else if (input.toLowerCase().charAt(0) == 'r') {
-
-                /* Remove the item at the head of the queue */
-                try {
-                    String name = q.head().getName();
-                    System.out.println("Removing " + name + " from the head of the queue");
-                    q.remove();
-                } catch (QueueUnderflowException e) {
-                    System.out.println("Can't remove head of queue: " + e);
-                }
-            } else if (input.toLowerCase().charAt(0) == 'e') {
-
-                /* Report if the queue is empty or not */
-                if (q.isEmpty()) {
-                    System.out.println("The queue is empty");
-                } else {
-                    System.out.println("The queue is NOT empty");
-                }
-            } else if (input.toLowerCase().charAt(0) == 'p') {
-
-                /* Print out the entire queue (in no particular order) */
-                System.out.println(q);
-            }
-            System.out.print("> ");
-            input = stdin.nextLine();
-        }
-        System.out.println("Bye");
+       
     }
 }
