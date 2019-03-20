@@ -33,9 +33,10 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {
-            
-       
-            return ((PriorityItem<T>) storage[0]).getItem();
+            int highest_pos;
+            highest_pos = highest_priority();
+           
+            return ((PriorityItem<T>) storage[highest_pos]).getItem();
         }
     }
     
@@ -49,43 +50,50 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
             /* No resizing implemented, but that would be a good enhancement. */
             tailIndex = tailIndex - 1;
             throw new QueueOverflowException();
-        } else {
+        } 
             /* Scan backwards looking for insertion point */
             
             
-            
+            storage[tailIndex] = item;
             storage[tailIndex] = new PriorityItem<>(item, priority);
             
-            int high = highest_priority(priority);
-            System.out.println(storage[high]);
-        }
+            
+        
     }
     
     
-    public int highest_priority(int p)
+    public int highest_priority()
     {      
         int i =0;
         int Pos=0;
-        int Pri = 0;
+     
+        int p = 0;
         
            while(i < tailIndex){
-               if(((PriorityItem<T>) storage[i]).getPriority() <= p){
+               if(((PriorityItem<T>) storage[i]).getPriority() >= p){
                    Pos = i;
-                   Pri = ((PriorityItem<T>) storage[i]).getPriority();
+                   p = ((PriorityItem<T>) storage[i]).getPriority();
                }
                
                i++;
             }
             return Pos;
     }
+    
+    public void test()
+    {
+        int test;
+        test = highest_priority();
+        System.out.println(storage[test]);
+    }
   
 
-    @Override
-    public void remove() throws QueueUnderflowException {
+   public void remove() throws QueueUnderflowException {
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {
-            for (int i = 0; i < tailIndex; i++) {
+            int highest_pri = highest_priority();
+            for (int i = highest_pri; i < storage.length - 1; i++) {
                 storage[i] = storage[i + 1];
             }
             tailIndex = tailIndex - 1;
