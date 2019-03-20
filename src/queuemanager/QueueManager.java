@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class QueueManager {
 
     public static void main(String[] args) {
-        PriorityQueue<Person> q;
+        PriorityQueue<Person> q =null;
         Scanner stdin = new Scanner(System.in);
 
         /* Welcome and prompt for implementation choices */
@@ -37,11 +37,15 @@ public class QueueManager {
                 break;
             case "sl":
             case "ul":
+                System.out.println("Using an unsorted List");
+                q = new UnsortedLinkPriorityQueue();
+               
+                 
             case "h":
             default:
-                q = new SortedArrayPriorityQueue<>(8);
-                System.out.println("Invalid choice, using sorted array.");
-                break;
+                //q = new SortedArrayPriorityQueue<>(8);
+               // System.out.println("Invalid choice, using sorted array.");
+                //break;
         }
 
         /* Usage instructions */
